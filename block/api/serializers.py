@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from .models import Content, Views
 
@@ -12,6 +13,7 @@ class ContentSeralizers(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        print(data, instance)
         Views.objects.create(views=instance)
         total_views = Views.objects.filter(views=data['id']).count()
         data['total_views'] = total_views
@@ -20,11 +22,9 @@ class ContentSeralizers(serializers.ModelSerializer):
 
 class ListContentSerializers(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='content-detail', read_only=True)
+        view_name='api:content-detail', read_only=True, lookup_field='slug')
 
     class Meta:
         model = Content
         fields = ('id', 'text', 'url')
-        # extra_kwargs = {
-        #     'url': {'view_name': 'api:content'}
-        # }
+
