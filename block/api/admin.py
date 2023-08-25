@@ -4,7 +4,7 @@ from .models import Views, Content
 
 
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ('views_count', 'author', 'text', 'video', 'pub_date')
+    list_display = ('views_count', 'text', 'video', 'pub_date')
     search_fields = ('text',)
     list_filter = ('pub_date', )
 

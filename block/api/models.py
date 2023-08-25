@@ -1,12 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 
 class Content(models.Model):
-    author = models.ForeignKey(
-        User, related_name='author', on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
     video = models.URLField()
+    slug = models.SlugField(unique=True)
 
     pub_date = models.DateTimeField(auto_now_add=True)
 
