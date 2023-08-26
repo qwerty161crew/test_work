@@ -9,8 +9,6 @@ app_name = 'api'
 
 router = DefaultRouter()
 
-# router.register('content', ContentViewSet, basename='content')
-
 
 urlpatterns = [
     path('', include((router.urls, 'api'))),

@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
 from .models import Content, Views
 
@@ -27,4 +25,3 @@ class ListContentSerializers(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = ('id', 'text', 'url')
-
