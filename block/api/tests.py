@@ -18,7 +18,7 @@ class ContentTests(TestCase):
         )
         cls.views = Views.objects.create(views=cls.content)
         cls.guest_client = Client()
-        cls.get_count = 2
+        cls.get_url = 10
 
     def test_status_code(self):
         cases = [
@@ -30,6 +30,7 @@ class ContentTests(TestCase):
                 self.assertEqual(client.get(url).status_code, answer)
 
     def test_count_views(self):
-        self.guest_client.get(CONTENT_DETAIL)
-        count_views = Views.objects.filter(views=self.content).count()
-        self.assertEqual(self.get_count, count_views)
+        for i in range(2, (self.get_url + 1)):
+            self.guest_client.get(CONTENT_DETAIL)
+            count_views = Views.objects.filter(views=self.content).count()
+            self.assertEqual(i, count_views)
