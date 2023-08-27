@@ -11,7 +11,6 @@ class ContentSeralizers(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        print(data, instance)
         Views.objects.create(views=instance)
         total_views = Views.objects.filter(views=data['id']).count()
         data['total_views'] = total_views
