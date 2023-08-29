@@ -25,7 +25,7 @@ class PostModelTest(TestCase):
         cls.block_content.content.set(Content.objects.filter(slug='slug'))
 
         cls.block_content_2 = BlockContents.objects.create(title='title_2')
-        cls.block_content_2.content.set(Content.objects.filter(slug='slug_2s'))
+        cls.block_content_2.content.set(Content.objects.filter(slug='slug_2'))
 
     def test_status_code_response(self):
         cases = [
@@ -38,12 +38,12 @@ class PostModelTest(TestCase):
                 self.assertEqual(client.get(url).status_code, answer)
 
     def test_views_content(self):
-        for i in range(0, (GET_URL + 1)):
-            views = Views.objects.filter(views=self.content).count()
+        for i in range(1, (GET_URL + 1)):
             self.client.get(CONTENT_DETAIL_TITLE_1)
+            views = Views.objects.filter(views=self.content).count()
             self.assertEqual(i, views)
 
     def test_block_content(self):
         response = self.client.get(CONTENT_DETAIL_TITLE_1)
-        slug = response.get('slug')
-        self.assertNotEqual(slug, self.content_2.slug)
+        response_2 = self.client.get(CONTENT_DETAIL_TITLE_2)
+        self.assertNotEqual(response.data, response_2.data)
