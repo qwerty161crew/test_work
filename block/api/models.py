@@ -2,11 +2,17 @@ from django.db import models
 
 
 class Content(models.Model):
-    text = models.CharField(max_length=200)
-    video = models.URLField()
+    title = models.CharField(max_length=200)
+    video = models.FileField(upload_to='videos/', null=True)
     slug = models.SlugField(unique=True)
 
     pub_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-pub_date']
+
+    def __srt__(self):
+        return self.title[:15]
 
 
 class Views(models.Model):

@@ -23,4 +23,4 @@ class ListContentSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Content
-        fields = ('id', 'text', 'url')
+        fields = ('title', 'url')

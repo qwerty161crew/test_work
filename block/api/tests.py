@@ -12,11 +12,10 @@ class ContentTests(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.content = Content.objects.create(
-            text='Тестовый пост',
+            title='Тестовый пост',
             slug='slug',
-            video='https://www.youtube.com/watch?v=mVOxyMHirqM'
+            video='videos/test_video.MOV'
         )
-        cls.views = Views.objects.create(views=cls.content)
         cls.guest_client = Client()
         cls.get_url = 10
 
@@ -30,7 +29,7 @@ class ContentTests(TestCase):
                 self.assertEqual(client.get(url).status_code, answer)
 
     def test_count_views(self):
-        for i in range(2, (self.get_url + 1)):
+        for i in range(1, (self.get_url + 1)):
             self.guest_client.get(CONTENT_DETAIL)
             count_views = Views.objects.filter(views=self.content).count()
             self.assertEqual(i, count_views)

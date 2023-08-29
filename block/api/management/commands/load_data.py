@@ -1,13 +1,16 @@
 from django.core.management.base import BaseCommand
-from django.core.exceptions import ValidationError
 
 from api.models import Content
 
-DATA = ['ПРОСТО ТЕКСТ', 'https://www.youtube.com/watch?v=Ur24Ms-MD5k', 'slug1']
+DATES = (
+    ['ПРОСТО ТЕКСТ', 'videos/test_video.MOV', 'slug1'],
+    ['Название 2', 'videos/test_video.MOV', 'slug2']
+)
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        if not Content.objects.filter(slug=DATA[2]).exists():
-            Content.objects.create(text=DATA[0], video=DATA[1], slug=DATA[2])
-        raise ValidationError('Вы уже создали запись')
+        for data in DATES:
+            Content.objects.create(title=data[0],
+                                   video=data[1],
+                                   slug=data[2])
