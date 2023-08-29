@@ -14,6 +14,6 @@ urlpatterns = [
     path('', include((router.urls, 'api'))),
     path('content/',
          ContentViewSet.as_view({'get': 'list'}), name='content-list'),
-    path('content/<slug:slug>/',
+    path('content/<str:title>/',
          ContentViewSet.as_view({'get': 'get_content'}), name='content-detail')
 ]

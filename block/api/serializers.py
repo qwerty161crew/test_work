@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Content, Views
+from .models import Content, Views, BlockContents
 
 
 class ContentSeralizers(serializers.ModelSerializer):
@@ -19,8 +19,8 @@ class ContentSeralizers(serializers.ModelSerializer):
 
 class ListContentSerializers(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name='api:content-detail', read_only=True, lookup_field='slug')
+        view_name='api:content-detail', read_only=True, lookup_field='title')
 
     class Meta:
-        model = Content
+        model = BlockContents
         fields = ('title', 'url')

@@ -1,16 +1,23 @@
 from django.core.management.base import BaseCommand
 
-from api.models import Content
+from api.models import Content, BlockContents
 
 DATES = (
-    ['ПРОСТО ТЕКСТ', 'videos/test_video.MOV', 'slug1'],
-    ['Название 2', 'videos/test_video.MOV', 'slug2']
+    ['videos/test_video.MOV', 'slug1'],
+    ['videos/test_video.MOV', 'slug2']
 )
+
+TITLE = 'title'
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for data in DATES:
-            Content.objects.create(title=data[0],
-                                   video=data[1],
-                                   slug=data[2])
+            Content.objects.create(
+                video=data[0],
+                slug=data[1]
+            )
+
+        content = Content.objects.all()
+        block = BlockContents.objects.create(title=TITLE)
+        block.content.set(content)
